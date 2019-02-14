@@ -10,11 +10,12 @@
                 <option value="2.0">2.0</option>
             </select>
         </li>
-        <li><button>Compile</button> </li>
+        <li><button onclick="abort = true; fsSource = $('#sourceCode').html(); abort = false; main();">Compile</button> </li>
     </ul>
     
-    <code id="sourceCode" spellcheck = "false"></code>
+    <code id="sourceCode" spellcheck = "false" contenteditable="true"></code>
     <canvas id="glCanvas"></canvas>
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="shaders.js"></script>

@@ -8,7 +8,7 @@ uniform float time;             //in Seconds
 void main() {
 
     vec3 color = vec3(1.0);
-    color = vec3(1.0, 0.5, 0.2) * (fract(time));
+    color = vec3(1.0, 0.5, 0.2) * step(distance(texcoord, vec2(0.5)), 0.2);
 
     gl_FragColor = vec4(color, 1.0);
 }

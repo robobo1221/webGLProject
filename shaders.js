@@ -1,3 +1,9 @@
+var abort = false;
+var vsSource = readFile('shader.vsh');
+var fsSource = readFile('shader.fsh');
+
+drawSourcecode(fsSource);
+
 main();
 
 function main() {
@@ -8,11 +14,6 @@ function main() {
         alert('Unable to initialize WebGL. Your browser or machine may not support it.');
         return;
     }
-
-    var vsSource = readFile('shader.vsh');
-    var fsSource = readFile('shader.fsh');
-
-    drawSourcecode(fsSource);
 
     var shaderProgram = initShaderProgram(gl, vsSource, fsSource);
 
@@ -36,6 +37,8 @@ function main() {
     const buffers = initBuffers(gl);
 
     function render(now){
+        if (abort) return;
+
         now *= 0.001;
         var delta = now - then;
         then = now;
@@ -44,7 +47,6 @@ function main() {
 
         requestAnimationFrame(render);
     }
-
     requestAnimationFrame(render);
 }
 
@@ -197,6 +199,8 @@ function resize(canvas) {
 function drawSourcecode(code){
     var sc = document.getElementById('sourceCode');
     sc.innerHTML = code;
+}
 
-    sc.contentEditable = "true";
+function rewritefsSource(fsSource){
+    fsSource = $('#sourceCode').html();
 }
