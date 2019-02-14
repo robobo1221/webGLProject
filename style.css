@@ -3,7 +3,8 @@ body{
 }
 
 #glCanvas{
-    width: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 
 #reslist{
@@ -19,7 +20,7 @@ select{
     padding: 0;
 }
 
-option {
+option{
     display: block;
     text-decoration: none;
 }

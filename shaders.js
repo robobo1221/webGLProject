@@ -23,11 +23,27 @@ function main() {
         uniformLocations: {
             //projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
             //modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+            resLocation: gl.getUniformLocation(shaderProgram, 'viewResolution'),
+            frameTimeCountLocation: gl.getUniformLocation(shaderProgram, 'frameTimeCounter'),
         },
     };
 
+    var then = 0;
+    var now = new Date();
+
     const buffers = initBuffers(gl);
-    runProgram(gl, programInfo, buffers);
+
+    function render(now){
+        now *= 0.001;
+        var delta = now - then;
+        then = now;
+
+        runProgram(gl, programInfo, buffers, now);
+
+        requestAnimationFrame(render);
+    }
+
+    requestAnimationFrame(render);
 }
 
 function initBuffers(gl) {
@@ -50,7 +66,7 @@ function initBuffers(gl) {
     };
 }
 
-function runProgram(gl, programInfo, buffers) {
+function runProgram(gl, programInfo, buffers, deltaTime) {
 
     resize(gl.canvas);
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -92,6 +108,9 @@ function runProgram(gl, programInfo, buffers) {
         false,
     modelViewMatrix);
     */
+
+    gl.uniform2f(programInfo.uniformLocations.resLocation, gl.canvas.width, gl.canvas.height);
+    gl.uniform1f(programInfo.uniformLocations.frameTimeCountLocation, deltaTime);
 
     {
         const offset = 0;
@@ -155,24 +174,20 @@ function readFile(file)
 }
 
 function resize(canvas) {
-
-    var resmult = 1.0;
-
     var e = document.getElementById("reslist");
-        e.selectedIndex= 2;
-    resmult = e.options[e.selectedIndex].value;
+    var resmult = e.options[e.selectedIndex].value;
 
     // Lookup the size the browser is displaying the canvas.
-    var displayWidth  = canvas.clientWidth;
-    var displayHeight = canvas.clientHeight;
+    var displayWidth  = canvas.clientWidth * resmult;
+    var displayHeight = canvas.clientHeight * resmult;
    
     // Check if the canvas is not the same size.
     if (canvas.width  != displayWidth ||
         canvas.height != displayHeight) {
    
       // Make the canvas the same size
-      canvas.width  = displayWidth * resmult;
-      canvas.height = displayHeight * resmult;
+      canvas.width  = displayWidth;
+      canvas.height = displayHeight;
     }
 
   }
