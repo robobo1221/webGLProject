@@ -1,14 +1,19 @@
 <link rel="stylesheet" type="text/css" href="style.css" />
 
 <body>
-    <select id="reslist">
-        <option value="0.25">0.25</option>
-        <option value="0.5">0.5</option>
-        <option value="1.0" selected="selected">1.0</option>
-        <option value="2.0">2.0</option>
-    </select>
+    <ul>
+        <li>
+            <select id="reslist">
+                <option value="0.25">0.25</option>
+                <option value="0.5">0.5</option>
+                <option value="1.0" selected="selected">1.0</option>
+                <option value="2.0">2.0</option>
+            </select>
+        </li>
+        <li><button>Compile</button> </li>
+    </ul>
     
-    <code id="sourceCode"></code>
+    <code id="sourceCode" spellcheck = "false"></code>
     <canvas id="glCanvas"></canvas>
 </body>
 

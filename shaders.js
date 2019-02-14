@@ -9,14 +9,14 @@ function main() {
         return;
     }
 
-    const vsSource = readFile('shader.vsh');
-    const fsSource = readFile('shader.fsh');
+    var vsSource = readFile('shader.vsh');
+    var fsSource = readFile('shader.fsh');
 
     drawSourcecode(fsSource);
 
-    const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+    var shaderProgram = initShaderProgram(gl, vsSource, fsSource);
 
-    const programInfo = {
+    var programInfo = {
         program: shaderProgram,
         attribLocations: {
             vertexPosition: gl.getAttribLocation(shaderProgram, 'vertPos'),
@@ -26,7 +26,7 @@ function main() {
             //projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
             //modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
             resLocation: gl.getUniformLocation(shaderProgram, 'viewResolution'),
-            frameTimeCountLocation: gl.getUniformLocation(shaderProgram, 'frameTimeCounter'),
+            frameTimeCountLocation: gl.getUniformLocation(shaderProgram, 'time'),
         },
     };
 
@@ -197,4 +197,6 @@ function resize(canvas) {
 function drawSourcecode(code){
     var sc = document.getElementById('sourceCode');
     sc.innerHTML = code;
+
+    sc.contentEditable = "true";
 }
