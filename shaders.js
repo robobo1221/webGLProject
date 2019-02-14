@@ -9,8 +9,10 @@ function main() {
         return;
     }
 
-    const vsSource = readFile("shader.vsh");
-    const fsSource = readFile("shader.fsh");
+    const vsSource = readFile('shader.vsh');
+    const fsSource = readFile('shader.fsh');
+
+    drawSourcecode(fsSource);
 
     const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
 
@@ -180,14 +182,19 @@ function resize(canvas) {
     // Lookup the size the browser is displaying the canvas.
     var displayWidth  = canvas.clientWidth * resmult;
     var displayHeight = canvas.clientHeight * resmult;
-   
+
     // Check if the canvas is not the same size.
     if (canvas.width  != displayWidth ||
         canvas.height != displayHeight) {
    
       // Make the canvas the same size
-      canvas.width  = displayWidth;
-      canvas.height = displayHeight;
+        canvas.width  = displayWidth;
+        canvas.height = displayHeight;
     }
 
-  }
+}
+
+function drawSourcecode(code){
+    var sc = document.getElementById('sourceCode');
+    sc.innerHTML = code;
+}
