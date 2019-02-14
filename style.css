@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+}
+
+#glCanvas{
+    width: 100%;
+}
+
+#reslist{
+    border-style: none;
+    width: 100px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+}
+
+select{
+    margin: 0;
+    padding: 0;
+}
+
+option {
+    display: block;
+    text-decoration: none;
+}
