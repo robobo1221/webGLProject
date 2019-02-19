@@ -1,4 +1,3 @@
-var abort = false;
 var vsSource = readFile('shader.vsh');
 var fsSource = readFile('shader.fsh');
 
@@ -37,8 +36,6 @@ function main() {
                 frameTimeCountLocation: gl.getUniformLocation(shaderProgram, 'time'),
             },
         };
-
-        if (abort) return;
 
         now *= 0.001;
         var delta = now - then;
