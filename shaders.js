@@ -1,7 +1,7 @@
 var vsSource = readFile('shader.vsh');
 var fsSource = readFile('shader.fsh');
 
-drawSourcecode(fsSource);
+//drawSourcecode(fsSource);
 
 main();
 
@@ -34,6 +34,7 @@ function main() {
                 //modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
                 resLocation: gl.getUniformLocation(shaderProgram, 'viewResolution'),
                 frameTimeCountLocation: gl.getUniformLocation(shaderProgram, 'time'),
+                sunVecLocation: gl.getUniformLocation(shaderProgram, 'sunVector'),
             },
         };
 
@@ -78,6 +79,7 @@ function runProgram(gl, programInfo, buffers, deltaTime) {
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LEQUAL);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.enable(gl.DITHER);
 
     {
         const numComponents = 2;
@@ -110,7 +112,12 @@ function runProgram(gl, programInfo, buffers, deltaTime) {
         false,
     modelViewMatrix);
     */
+    
+    var sunVector = new THREE.Vector3(0, 0.01, 1);
+        sunVector.normalize();
 
+
+    gl.uniform3f(programInfo.uniformLocations.sunVecLocation, sunVector.x, sunVector.y, sunVector.z);
     gl.uniform2f(programInfo.uniformLocations.resLocation, gl.canvas.width, gl.canvas.height);
     gl.uniform1f(programInfo.uniformLocations.frameTimeCountLocation, deltaTime);
 
@@ -202,3 +209,12 @@ function drawSourcecode(code){
 function rewritefsSource(){
     fsSource = $('#sourceCode').html();
 }
+
+function hideCode() {
+    var x = document.getElementById('#codeContainer');
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
