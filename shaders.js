@@ -15,28 +15,29 @@ function main() {
         return;
     }
 
-    var shaderProgram = initShaderProgram(gl, vsSource, fsSource);
-
-    var programInfo = {
-        program: shaderProgram,
-        attribLocations: {
-            vertexPosition: gl.getAttribLocation(shaderProgram, 'vertPos'),
-        },
-
-        uniformLocations: {
-            //projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
-            //modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
-            resLocation: gl.getUniformLocation(shaderProgram, 'viewResolution'),
-            frameTimeCountLocation: gl.getUniformLocation(shaderProgram, 'time'),
-        },
-    };
-
     var then = 0;
     var now = new Date();
 
     const buffers = initBuffers(gl);
 
     function render(now){
+
+        var shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+
+        var programInfo = {
+            program: shaderProgram,
+            attribLocations: {
+                vertexPosition: gl.getAttribLocation(shaderProgram, 'vertPos'),
+            },
+    
+            uniformLocations: {
+                //projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
+                //modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+                resLocation: gl.getUniformLocation(shaderProgram, 'viewResolution'),
+                frameTimeCountLocation: gl.getUniformLocation(shaderProgram, 'time'),
+            },
+        };
+
         if (abort) return;
 
         now *= 0.001;
