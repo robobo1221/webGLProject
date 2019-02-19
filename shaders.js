@@ -202,6 +202,6 @@ function drawSourcecode(code){
     sc.innerHTML = code;
 }
 
-function rewritefsSource(fsSource){
+function rewritefsSource(){
     fsSource = $('#sourceCode').html();
 }
