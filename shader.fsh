@@ -45,7 +45,7 @@ const vec2 distribution = vec2(8.0e3, 1.2e3);
 const vec2 rDistriburion = 1.0 / distribution;
 const vec2 scaledPlanetRadius = rDistriburion * planetRadius;
 
-vec3 spherePosition = vec3(0.0, planetRadius + 1000.0, 0.0);
+vec3 spherePosition = vec3(0.0, 0.0, -planetRadius * 2.0);
 
 float bayer2(vec2 a){
     a = floor(a);
