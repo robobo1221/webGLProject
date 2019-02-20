@@ -7,7 +7,8 @@ main();
 
 function main() {
     const canvas = document.querySelector('#glcanvas');
-    const gl = canvas.getContext('webgl');
+    const gl = canvas.getContext('webgl2');
+
 
     if (!gl) {
         alert('Unable to initialize WebGL. Your browser or machine may not support it.');
@@ -113,7 +114,7 @@ function runProgram(gl, programInfo, buffers, deltaTime) {
     modelViewMatrix);
     */
     
-    var sunVector = new THREE.Vector3(0, 0.01, 1);
+    var sunVector = new THREE.Vector3(0.0, 1.0, -1.0);
         sunVector.normalize();
 
 

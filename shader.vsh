@@ -1,6 +1,8 @@
-varying vec2 texcoord;
+#version 300 es
 
-attribute vec4 vertPos;
+out vec2 texcoord;
+
+in vec4 vertPos;
 
 void main() {
     gl_Position = vertPos;
