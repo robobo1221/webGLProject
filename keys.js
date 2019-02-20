@@ -34,57 +34,54 @@ var keyboardInput = {
     keyShift: false, 
 };
 
-function onKeyDown(event) {
-    var keyCode = event.keyCode;
+function doKeyStuff(keyCode, press){
+
     switch (keyCode) {
         case 68: //d
-            keyboardInput.keyD = true;
+            keyboardInput.keyD = press;
             break;
         case 83: //s
-            keyboardInput.keyS = true;
+            keyboardInput.keyS = press;
             break;
         case 65: //a
-            keyboardInput.keyA = true;
+            keyboardInput.keyA = press;
             break;
         case 87: //w
-            keyboardInput.keyW = true;
-            break;
-        case 32: //Space
-            keyboardInput.keySpace = true;
-            break;
-        case 16: //Shift
-            keyboardInput.keyShift = true;
+            keyboardInput.keyW = press;
             break;
         case 67: //C
-            keyboardInput.keyC = true;
+            keyboardInput.keyC = press;
+            break;
+        case 73: //I
+            keyboardInput.keyI = press;
+            break;
+        case 74: //J
+            keyboardInput.keyI = press;
+            break;
+        case 75: //K
+            keyboardInput.keyI = press;
+            break;
+        case 76: //L
+            keyboardInput.keyI = press;
+            break;
+
+        case 32: //Space
+            keyboardInput.keySpace = press;
+            break;
+        case 16: //Shift
+            keyboardInput.keyShift = press;
             break;
     }
 }
+
+function onKeyDown(event) {
+    var keyCode = event.keyCode;
+
+    doKeyStuff(keyCode, true);
+}
   
 function onKeyUp(event) {
-var keyCode = event.keyCode;
+    var keyCode = event.keyCode;
 
-switch (keyCode) {
-    case 68: //d
-        keyboardInput.keyD = false;
-        break;
-    case 83: //s
-        keyboardInput.keyS = false;
-        break;
-    case 65: //a
-        keyboardInput.keyA = false;
-        break;
-    case 87: //w
-        keyboardInput.keyW = false;
-        break;
-    case 32: //Space
-        keyboardInput.keySpace = false;
-        break;
-    case 16: //Shift
-        keyboardInput.keyShift = false;
-        break;
-    case 67: //C
-        keyboardInput.keyC = false;
-        break;
-    }
+    doKeyStuff(keyCode, false);
 }
