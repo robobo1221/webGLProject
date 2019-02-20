@@ -12,6 +12,7 @@ uniform float time;             //in Seconds
 
 #define clamp01(x) clamp(x, 0.0, 1.0)
 #define max0(x) max(0.0, x)
+#define max3(a) max((a).x, max((a).y, (a).z))
 
 /*****************************************************************/
 
@@ -20,7 +21,7 @@ const float rPI = 1.0 / PI;
 const float TAU = PI * 2.0;
 
 //const vec3 sundir = vec3(1.0, 0.0, 0.0);
-const float sunBrightness = 40.0;
+const float sunBrightness = 15.0;
 
 const float f0 = 0.021;
 const float roughness = 0.3;
@@ -113,7 +114,7 @@ float calculateStars(vec3 worldVector){
     float starMask = step(randVal, 0.01);
     float stars = smoothstep(0.5, 0.0, length(fr)) * starMask;
 
-    return stars * 0.5;
+    return stars * 0.1;
 }
 
 #define bayer4(a)   (bayer2( .5*(a))*.25+bayer2(a))
@@ -267,9 +268,9 @@ void main() {
     color = calculatePlanet(color, worldVector, LoV, dither);
     
 
-    //color = pow(color, vec3(2.2));
+    color = pow(color, vec3(2.2));
     color /= color + 1.0;
-    //color = pow(color, vec3(1.0 / 2.2));
+    color = pow(color, vec3(1.0 / 2.2));
 
     fragColor = vec4(color, 1.0);
 }
