@@ -26,7 +26,7 @@ const float f0 = 0.021;
 const float roughness = 0.3;
 
 const vec3 rayleighCoeff = vec3(5.8000e-6, 1.3500e-5, 3.3100e-5);
-const vec3 mieCoeff = vec3(3.0e-6);
+const vec3 mieCoeff = vec3(8.0e-6);
 const vec3 waterCoeff = vec3(0.25422, 0.03751, 0.01150);
 
 const mat2x3 scatterCoeff = mat2x3(rayleighCoeff, mieCoeff);
@@ -45,7 +45,7 @@ const vec2 distribution = vec2(8.0e3, 1.2e3);
 const vec2 rDistriburion = 1.0 / distribution;
 const vec2 scaledPlanetRadius = rDistriburion * planetRadius;
 
-vec3 spherePosition = vec3(0.0, 0.0, -planetRadius * 3.0);
+vec3 spherePosition = vec3(0.0, planetRadius + 10000.0, -1000000.0);
 
 float bayer2(vec2 a){
     a = floor(a);
@@ -216,12 +216,15 @@ vec3 calculatePlanet(vec3 backGround, vec3 worldVector, float LoV, float dither)
     vec3 scattering = directScatter * sunBrightness;
     float visibility = 1.0 - float(pI);
 
-    vec3 normal = normalize(worldVector * pS.x + spherePosition);
+    vec3 planetPosition = worldVector * pS.x + spherePosition;
+    vec3 normal = normalize(planetPosition);
+    vec3 sunTransmittance = absorbSunlightSky(planetPosition, sunVector);
+    vec3 sunColor = sunTransmittance * sunBrightness;
+
     const float alpha2 = roughness * roughness * roughness * roughness;
 
-    float NoL = dot(normal, sunVector);
-    float sunSpecular = calculateSpecularBRDF(normal, sunVector, worldVector, f0, alpha2) * sunBrightness;
-    vec3 waterColor = exp2(-waterCoeff * max0(pS.y - pS.x) * 0.000004) * max0(NoL);
+    vec3 sunSpecular = calculateSpecularBRDF(normal, sunVector, worldVector, f0, alpha2) * sunColor;
+    vec3 waterColor = exp2(-waterCoeff * 10.0) * sunTransmittance;
 
     vec3 planet = waterColor + sunSpecular;
 
