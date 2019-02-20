@@ -247,7 +247,7 @@ vec3 calculatePlanet(vec3 backGround, vec3 worldVector, float LoV, float dither)
     const float alpha2 = roughness * roughness * roughness * roughness;
 
     vec3 sunSpecular = calculateSpecularBRDF(normal, sunVector, worldVector, f0, alpha2) * sunColor;
-    vec3 waterColor = exp2(-waterCoeff * 10.0) * sunTransmittance;
+    vec3 waterColor = exp2(-waterCoeff * 50.0) * sunTransmittance;
 
     vec3 planet = waterColor + sunSpecular;
 
