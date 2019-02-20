@@ -45,7 +45,7 @@ const vec2 distribution = vec2(8.0e3, 1.2e3);
 const vec2 rDistriburion = 1.0 / distribution;
 const vec2 scaledPlanetRadius = rDistriburion * planetRadius;
 
-vec3 spherePosition = vec3(0.0, 0.0, -planetRadius * 3.0);
+vec3 spherePosition = vec3(0.0, planetRadius + 1000.0, 0.0);
 
 float bayer2(vec2 a){
     a = floor(a);
@@ -254,7 +254,7 @@ vec3 calculatePlanet(vec3 backGround, vec3 worldVector, float LoV, float dither)
 void main() {
 
     vec2 wUV = (texcoord * 2.0 - 1.0) * vec2(1.0, viewResolution.y / viewResolution.x);
-    vec3 worldVector = normalize(vec3(wUV, 1.0));
+    vec3 worldVector = normalize(vec3(wUV, 0.5));
 
     float LoV = dot(sunVector, worldVector);
 
