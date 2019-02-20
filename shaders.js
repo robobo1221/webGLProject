@@ -114,7 +114,7 @@ function runProgram(gl, programInfo, buffers, deltaTime) {
     modelViewMatrix);
     */
     
-    var sunVector = new THREE.Vector3(0.0, .15, 1.0);
+    var sunVector = new THREE.Vector3(0.0, .12, 1.0);
         sunVector.normalize();
 
 
