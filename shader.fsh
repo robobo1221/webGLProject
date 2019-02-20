@@ -45,7 +45,7 @@ const vec2 distribution = vec2(8.0e3, 1.2e3);
 const vec2 rDistriburion = 1.0 / distribution;
 const vec2 scaledPlanetRadius = rDistriburion * planetRadius;
 
-vec3 spherePosition = vec3(0.0, planetRadius + 10000.0, -1000000.0);
+vec3 spherePosition = vec3(0.0, 0.0, -planetRadius * 3.0);
 
 float bayer2(vec2 a){
     a = floor(a);
@@ -94,6 +94,26 @@ float calculateSpecularBRDF(const vec3 normal, const vec3 lightVector, const vec
 	float F = fresnel(f0, VoH);
 
 	return max0(F * D * G / (4.0 * NoL * NoV)) * NoL;
+}
+
+float hash13(vec3 p3){
+	p3  = fract(p3 * vec3(443.897, 441.423, 437.195));
+    p3 += dot(p3, p3.yzx + 19.19);
+    return fract((p3.x + p3.y) * p3.z);
+}
+
+float calculateStars(vec3 worldVector){
+    const float res = 256.0;
+
+    vec3 starCoord = worldVector * res;
+    vec3 fl = floor(starCoord);
+    vec3 fr = fract(starCoord) - 0.5;
+
+    float randVal = hash13(fl);
+    float starMask = step(randVal, 0.01);
+    float stars = smoothstep(0.5, 0.0, length(fr)) * starMask;
+
+    return stars * 0.5;
 }
 
 #define bayer4(a)   (bayer2( .5*(a))*.25+bayer2(a))
@@ -241,8 +261,9 @@ void main() {
     float dither = bayer64(texcoord * viewResolution);
 
     float sun = calculateSunSpot(LoV);
+    float stars = calculateStars(worldVector);
 
-    vec3 color = vec3(sun);
+    vec3 color = vec3(sun) + stars;
     color = calculatePlanet(color, worldVector, LoV, dither);
     
 
