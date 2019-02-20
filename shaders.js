@@ -5,83 +5,6 @@ var fsSource = readFile('shader.fsh');
 
 main();
 
-document.addEventListener('keydown', onKeyDown, false);
-document.addEventListener('keyup', onKeyUp, false);
-
-function onKeyDown(event) {
-    var keyCode = event.keyCode;
-    switch (keyCode) {
-        case 68: //d
-            keyboardInput.keyD = true;
-            break;
-        case 83: //s
-            keyboardInput.keyS = true;
-            break;
-        case 65: //a
-            keyboardInput.keyA = true;
-            break;
-        case 87: //w
-            keyboardInput.keyW = true;
-            break;
-        case 32: //Space
-            keyboardInput.keySpace = true;
-            break;
-        case 16: //Shift
-            keyboardInput.keyShift = true;
-            break;
-        case 67: //C
-            keyboardInput.keyC = true;
-            break;
-    }
-}
-  
-  function onKeyUp(event) {
-    var keyCode = event.keyCode;
-  
-    switch (keyCode) {
-      case 68: //d
-            keyboardInput.keyD = false;
-            break;
-      case 83: //s
-            keyboardInput.keyS = false;
-            break;
-      case 65: //a
-            keyboardInput.keyA = false;
-            break;
-      case 87: //w
-            keyboardInput.keyW = false;
-            break;
-      case 32: //Space
-            keyboardInput.keySpace = false;
-            break;
-      case 16: //Shift
-            keyboardInput.keyShift = false;
-            break;
-      case 67: //C
-            keyboardInput.keyC = false;
-            break;
-    }
-  }
-
-var keyboardInput = {keyW: false, keyA: false, keyS: false, keyD: false, keySpace: false, keyShift: false, keyC: false};
-
-function moveCamera(cameraPosition){
-
-    var speed = 10000.0;
-
-    if (keyboardInput.keyShift) speed = 50000.0;
-    if (keyboardInput.keyD)     cameraPosition.x += speed;
-    if (keyboardInput.keyS)     cameraPosition.z -= speed;
-    if (keyboardInput.keyA)     cameraPosition.x -= speed;
-    if (keyboardInput.keyW)     cameraPosition.z += speed;
-    if (keyboardInput.keySpace) cameraPosition.y += speed * 0.25;
-    if (keyboardInput.keyC)     cameraPosition.y -= speed * 0.25;
-        
-    
-
-    //cameraPosition.y = Math.max(cameraPosition.y, -Math.sqrt(cameraPosition.x * cameraPosition.z) + 1.0);
-}
-
 function main() {
     const canvas = document.querySelector('#glcanvas');
     const gl = canvas.getContext('webgl2');
@@ -293,11 +216,17 @@ function rewritefsSource(){
     fsSource = $('#sourceCode').html();
 }
 
-function hideCode() {
-    var x = document.getElementById('#codeContainer');
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-  }
+function moveCamera(cameraPosition){
+
+    var speed = 10000.0;
+
+    if (keyboardInput.keyShift) speed = 50000.0;
+    if (keyboardInput.keyD)     cameraPosition.x += speed;
+    if (keyboardInput.keyS)     cameraPosition.z -= speed;
+    if (keyboardInput.keyA)     cameraPosition.x -= speed;
+    if (keyboardInput.keyW)     cameraPosition.z += speed;
+    if (keyboardInput.keySpace) cameraPosition.y += speed * 0.25;
+    if (keyboardInput.keyC)     cameraPosition.y -= speed * 0.25;
+
+    //cameraPosition.y = Math.max(cameraPosition.y, -Math.sqrt(cameraPosition.x * cameraPosition.z) + 1.0);
+}
