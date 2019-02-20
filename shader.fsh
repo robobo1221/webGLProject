@@ -4,7 +4,9 @@ precision mediump float;
 in vec2 texcoord;
 out vec4 fragColor;
 
+uniform vec3 cameraPosition;    //Use WASD to move
 uniform vec3 sunVector;
+
 uniform vec2 viewResolution;    //x = viewWidth, y = viewHeight
 uniform float time;             //in Seconds
 
@@ -45,8 +47,6 @@ const float atmosphereRadiusSquared = atmosphereRadius * atmosphereRadius;
 const vec2 distribution = vec2(8.0e3, 1.2e3);
 const vec2 rDistriburion = 1.0 / distribution;
 const vec2 scaledPlanetRadius = rDistriburion * planetRadius;
-
-vec3 spherePosition = vec3(0.0, 0.0, -planetRadius * 2.0);
 
 float bayer2(vec2 a){
     a = floor(a);
@@ -203,6 +203,8 @@ vec3 calculatePlanet(vec3 backGround, vec3 worldVector, float LoV, float dither)
     const int steps = 32;
     const float rSteps = 1.0 / float(steps);
 
+    vec3 spherePosition = cameraPosition + vec3(0.0, planetRadius, 0.0);
+
     vec2 aS = rsi(spherePosition, worldVector, atmosphereRadius);
     if (aS.y < 0.0) return backGround;
 
@@ -255,7 +257,7 @@ vec3 calculatePlanet(vec3 backGround, vec3 worldVector, float LoV, float dither)
 void main() {
 
     vec2 wUV = (texcoord * 2.0 - 1.0) * vec2(1.0, viewResolution.y / viewResolution.x);
-    vec3 worldVector = normalize(vec3(wUV, 0.5));
+    vec3 worldVector = normalize(vec3(wUV, 1.0));
 
     float LoV = dot(sunVector, worldVector);
 
@@ -272,5 +274,5 @@ void main() {
     color /= color + 1.0;
     color = pow(color, vec3(1.0 / 2.2));
 
-    fragColor = vec4(color, 1.0);
+    fragColor = vec4(color + dither * (1.0 / 255.0), 1.0);
 }

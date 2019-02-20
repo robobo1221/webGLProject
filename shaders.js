@@ -5,6 +5,83 @@ var fsSource = readFile('shader.fsh');
 
 main();
 
+document.addEventListener('keydown', onKeyDown, false);
+document.addEventListener('keyup', onKeyUp, false);
+
+function onKeyDown(event) {
+    var keyCode = event.keyCode;
+    switch (keyCode) {
+        case 68: //d
+            keyboardInput.keyD = true;
+            break;
+        case 83: //s
+            keyboardInput.keyS = true;
+            break;
+        case 65: //a
+            keyboardInput.keyA = true;
+            break;
+        case 87: //w
+            keyboardInput.keyW = true;
+            break;
+        case 32: //Space
+            keyboardInput.keySpace = true;
+            break;
+        case 16: //Shift
+            keyboardInput.keyShift = true;
+            break;
+        case 67: //C
+            keyboardInput.keyC = true;
+            break;
+    }
+}
+  
+  function onKeyUp(event) {
+    var keyCode = event.keyCode;
+  
+    switch (keyCode) {
+      case 68: //d
+            keyboardInput.keyD = false;
+            break;
+      case 83: //s
+            keyboardInput.keyS = false;
+            break;
+      case 65: //a
+            keyboardInput.keyA = false;
+            break;
+      case 87: //w
+            keyboardInput.keyW = false;
+            break;
+      case 32: //Space
+            keyboardInput.keySpace = false;
+            break;
+      case 16: //Shift
+            keyboardInput.keyShift = false;
+            break;
+      case 67: //C
+            keyboardInput.keyC = false;
+            break;
+    }
+  }
+
+var keyboardInput = {keyW: false, keyA: false, keyS: false, keyD: false, keySpace: false, keyShift: false, keyC: false};
+
+function moveCamera(cameraPosition){
+
+    var speed = 10000.0;
+
+    if (keyboardInput.keyShift) speed = 50000.0;
+    if (keyboardInput.keyD)     cameraPosition.x += speed;
+    if (keyboardInput.keyS)     cameraPosition.z -= speed;
+    if (keyboardInput.keyA)     cameraPosition.x -= speed;
+    if (keyboardInput.keyW)     cameraPosition.z += speed;
+    if (keyboardInput.keySpace) cameraPosition.y += speed * 0.25;
+    if (keyboardInput.keyC)     cameraPosition.y -= speed * 0.25;
+        
+    
+
+    //cameraPosition.y = Math.max(cameraPosition.y, -Math.sqrt(cameraPosition.x * cameraPosition.z) + 1.0);
+}
+
 function main() {
     const canvas = document.querySelector('#glcanvas');
     const gl = canvas.getContext('webgl2');
@@ -17,6 +94,8 @@ function main() {
 
     var then = 0;
     var now = new Date();
+
+    var cameraPosition = new THREE.Vector3(0.0, 1000.0, 0.0);
 
     const buffers = initBuffers(gl);
 
@@ -36,6 +115,7 @@ function main() {
                 resLocation: gl.getUniformLocation(shaderProgram, 'viewResolution'),
                 frameTimeCountLocation: gl.getUniformLocation(shaderProgram, 'time'),
                 sunVecLocation: gl.getUniformLocation(shaderProgram, 'sunVector'),
+                camPosLocation: gl.getUniformLocation(shaderProgram, 'cameraPosition'),
             },
         };
 
@@ -43,7 +123,9 @@ function main() {
         var delta = now - then;
         then = now;
 
-        runProgram(gl, programInfo, buffers, now);
+        moveCamera(cameraPosition);
+
+        runProgram(gl, programInfo, buffers, now, cameraPosition);
 
         requestAnimationFrame(render);
     }
@@ -70,7 +152,7 @@ function initBuffers(gl) {
     };
 }
 
-function runProgram(gl, programInfo, buffers, deltaTime) {
+function runProgram(gl, programInfo, buffers, deltaTime, cameraPosition) {
 
     resize(gl.canvas);
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -114,10 +196,10 @@ function runProgram(gl, programInfo, buffers, deltaTime) {
     modelViewMatrix);
     */
     
-    var sunVector = new THREE.Vector3(1.0, 1.0, -0.5);
+    var sunVector = new THREE.Vector3(0.0, 1.0, -1.0);
         sunVector.normalize();
 
-
+    gl.uniform3f(programInfo.uniformLocations.camPosLocation, cameraPosition.x, cameraPosition.y, cameraPosition.z);
     gl.uniform3f(programInfo.uniformLocations.sunVecLocation, sunVector.x, sunVector.y, sunVector.z);
     gl.uniform2f(programInfo.uniformLocations.resLocation, gl.canvas.width, gl.canvas.height);
     gl.uniform1f(programInfo.uniformLocations.frameTimeCountLocation, deltaTime);
