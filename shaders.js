@@ -15,7 +15,6 @@ function main() {
         return;
     }
 
-    var then = 0;
     var now = new Date();
 
     var cameraPosition = new THREE.Vector3(0.0, 1000.0, 0.0);
@@ -43,8 +42,6 @@ function main() {
         };
 
         now *= 0.001;
-        var delta = now - then;
-        then = now;
 
         moveCamera(cameraPosition);
 
@@ -119,7 +116,7 @@ function runProgram(gl, programInfo, buffers, deltaTime, cameraPosition) {
     modelViewMatrix);
     */
     
-    var sunVector = new THREE.Vector3(0.0, 0.1, 1.0);
+    var sunVector = new THREE.Vector3(0.0, 0.1, -1.0);
         sunVector.normalize();
 
     gl.uniform3f(programInfo.uniformLocations.camPosLocation, cameraPosition.x, cameraPosition.y, cameraPosition.z);
