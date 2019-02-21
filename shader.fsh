@@ -29,7 +29,7 @@ const float f0 = 0.021;
 const float roughness = 0.3;
 
 const vec3 rayleighCoeff = vec3(5.8000e-6, 1.3500e-5, 3.3100e-5);
-const vec3 mieCoeff = vec3(8.0e-6);
+const vec3 mieCoeff = vec3(3.0e-5);
 const vec3 waterCoeff = vec3(0.25422, 0.03751, 0.01150);
 
 const mat2x3 scatterCoeff = mat2x3(rayleighCoeff, mieCoeff);
