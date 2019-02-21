@@ -23,7 +23,7 @@ const float rPI = 1.0 / PI;
 const float TAU = PI * 2.0;
 
 //const vec3 sundir = vec3(1.0, 0.0, 0.0);
-const float sunBrightness = 15.0;
+const float sunBrightness = 10.0;
 
 const float f0 = 0.021;
 const float roughness = 0.3;
