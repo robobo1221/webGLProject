@@ -37,20 +37,23 @@ var keyboardInput = {
 function doKeyStuff(keyCode, press){
 
     switch (keyCode) {
-        case 68: //d
+        case 68: //D
             keyboardInput.keyD = press;
             break;
-        case 83: //s
+        case 83: //S
             keyboardInput.keyS = press;
             break;
-        case 65: //a
+        case 65: //A
             keyboardInput.keyA = press;
             break;
-        case 87: //w
+        case 87: //W
             keyboardInput.keyW = press;
             break;
         case 67: //C
             keyboardInput.keyC = press;
+            break;
+        case 88: //X
+            keyboardInput.keyX = press;
             break;
         case 73: //I
             keyboardInput.keyI = press;

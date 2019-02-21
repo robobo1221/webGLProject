@@ -221,6 +221,7 @@ function moveCamera(cameraPosition){
     var speed = 10000.0;
 
     if (keyboardInput.keyShift) speed = 50000.0;
+    if (keyboardInput.keyX)     speed = 1000.0;
     if (keyboardInput.keyD)     cameraPosition.x += speed;
     if (keyboardInput.keyS)     cameraPosition.z -= speed;
     if (keyboardInput.keyA)     cameraPosition.x -= speed;

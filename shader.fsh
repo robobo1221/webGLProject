@@ -274,5 +274,5 @@ void main() {
     color /= color + 1.0;
     color = pow(color, vec3(1.0 / 2.2));
 
-    fragColor = vec4(color + dither * (1.0 / 255.0), 1.0);
+    fragColor = vec4(color, 1.0);
 }
