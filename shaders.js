@@ -60,8 +60,8 @@ function initBuffers(gl) {
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
     const positions = [
-        1.0,  1.0,
-        -1.0,  1.0,
+        1.0, 1.0,
+        -1.0, -1.0,
         1.0, -1.0,
         -1.0, -1.0,
     ];
