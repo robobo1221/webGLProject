@@ -272,7 +272,7 @@ void main() {
 
     color = pow(color, vec3(2.2));
     color /= color + 1.0;
-    color = pow(color, vec3(1.0 / 2.2));
+    color = pow(color, vec3(1.0 / 4.4));
 
     fragColor = vec4(color, 1.0);
 }
