@@ -31,7 +31,8 @@ var keyboardInput = {
     keyM: false,
     keySpace: false, 
     keyCtrl: false,
-    keyShift: false, 
+    keyShift: false,
+    keyEsc: false,
 };
 
 function doKeyStuff(keyCode, press){
@@ -73,6 +74,9 @@ function doKeyStuff(keyCode, press){
             break;
         case 16: //Shift
             keyboardInput.keyShift = press;
+            break;
+        case 27: //Escape
+            keyboardInput.keyEsc = press;
             break;
     }
 }
