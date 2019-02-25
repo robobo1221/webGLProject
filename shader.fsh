@@ -127,7 +127,7 @@ float calculateStars(vec3 worldVector){
 float calculateSunSpot(float VdotL) {
     const float sunRadius = radians(sunAngularSize);
     const float cosSunRadius = cos(sunRadius);
-    const float sunLuminance = 1.0 / ((1.0 - cosSunRadius) * TAU);
+    const float sunLuminance = 1.0 / ((1.0 - cosSunRadius) * PI);
 
     return step(cosSunRadius, VdotL) * sunLuminance;
 }
