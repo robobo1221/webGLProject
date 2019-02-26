@@ -18,22 +18,6 @@ ul {
     position: absolute;
 }
 
-#codeContainer {
-    position: absolute;
-    margin-top: 50px;
-    margin-left: 10px;
-    display: none;
-}
-
-#sourceCode {
-    color: white;
-    text-shadow: 2px 2px 4px black;
-    font-size: 15px;
-    word-wrap: break-word;      /* IE 5.5-7 */
-    white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
-    white-space: pre-wrap;
-}
-
 #errorMessage {
     margin-top: 10px;
     color: red;
@@ -98,7 +82,20 @@ ul {
     width: 100px;
 }
 
-#mainMenuUL, #settingsPage {
+#headerTitle {
+	background-color: RGBA(40, 100, 255, 0.1);
+}
+
+#sourceCode {
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    font-size: 15px;
+    word-wrap: break-word;      /* IE 5.5-7 */
+    white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
+    white-space: pre-wrap;
+}
+
+#mainMenuUL, #settingsPage, #codeContainer{
     overflow: initial;
     margin-left: 10vh;
     margin-top: 3vh;
@@ -132,6 +129,10 @@ li a {
 
 #settingsPage {
     display: none;
+}
+
+#codeContainer{
+	display: none;
 }
 
 .noselect {

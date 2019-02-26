@@ -1,5 +1,5 @@
-var vsSource = readFile('shader.vsh');
-var fsSource = readFile('shader.fsh');
+var vsSource = readFile('shaders/shader.vsh');
+var fsSource = readFile('shaders/shader.fsh');
 
 drawSourcecode(fsSource);
 

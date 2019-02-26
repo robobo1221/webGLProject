@@ -5,7 +5,7 @@ in vec2 texcoord;
 out vec4 fragColor;
 
 uniform vec3 cameraPosition;    //Use WASD to move
-uniform vec3 sunVector;
+uniform vec3 sunVector;			//Normalized sun direction
 
 uniform vec2 viewResolution;    //x = viewWidth, y = viewHeight
 uniform float time;             //in Seconds
