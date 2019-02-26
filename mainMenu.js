@@ -1,5 +1,4 @@
 var hasEnteredSimulation = false;
-var enterSimRequest;
 
 enterSimulation();
 
@@ -31,5 +30,5 @@ function enterSimulation(){
         hasEnteredSimulation = false;
     }
 
-    enterSimRequest = requestAnimationFrame(enterSimulation);
+    requestAnimationFrame(enterSimulation);
 }
