@@ -1,10 +1,9 @@
-body{
+body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
     background-color: black;
 }
 
-#glCanvas{
+#glCanvas {
     width: 100vw;
     height: 100vh;
     filter: blur(10px);
@@ -25,7 +24,7 @@ ul {
     display: none;
 }
   
-#reslist a, #reslistSelect, #reslist button{
+#reslist a, #reslistSelect, #reslist button {
     color: black;
     text-shadow: 1px 1px 1px white;
     text-align: center;
@@ -34,12 +33,12 @@ ul {
     background-color: inherit;
 }
 
-#reslist:hover, button:hover, #reslistSelect:hover{
+#reslist:hover, button:hover, #reslistSelect:hover {
     cursor: pointer;
     background-color: rgba(150, 150, 150, 0.2);
 }
 
-#codeContainer{
+#codeContainer {
     position: absolute;
     margin-top: 50px;
     margin-left: 10px;
@@ -49,7 +48,7 @@ ul {
     display: block;
 }
 
-#sourceCode{
+#sourceCode {
     color: white;
     text-shadow: 2px 2px 4px black;
     word-wrap: break-word;      /* IE 5.5-7 */
@@ -57,7 +56,7 @@ ul {
     white-space: pre-wrap;
 }
 
-#errorMessage{
+#errorMessage {
     margin-top: 10px;
     color: red;
     text-shadow: 2px 2px 4px black;
@@ -67,7 +66,7 @@ ul {
     white-space: pre-wrap;      /* current browsers */
 }
 
-@keyframes menuListLoadup{
+@keyframes menuListLoadup {
     from {
         margin-left: -10vh;
         filter: blur(30px);
@@ -77,7 +76,7 @@ ul {
     }
 }
 
-@keyframes menuLogoLoadup{
+@keyframes menuLogoLoadup {
     from {
         margin-top: -30vh;
         filter: blur(30px);
@@ -87,7 +86,7 @@ ul {
     }
 }
 
-#menuWrapper{
+#menuWrapper {
     position: absolute;
     overflow: auto;
     margin: 0;
@@ -101,7 +100,7 @@ ul {
     text-shadow: 0 0 7px white;
 }
 
-#logoImageID{
+#logoImageID {
     width: 250px;
     margin-left: 10vh;
     overflow: hidden;
@@ -109,7 +108,7 @@ ul {
     animation-duration: 2s;
 }
 
-#mainMenuUL{
+#mainMenuUL {
     overflow: initial;
     margin-left: 10vh;
     margin-top: 3vh;
@@ -117,7 +116,7 @@ ul {
     animation-duration: 2s;
 }
 
-#mainMenuUL li{
+#mainMenuUL li {
     transition: 150ms;
     display: block;
     padding-top: 20px;
@@ -126,18 +125,25 @@ ul {
     padding-right: 10vw;
 }
 
-#mainMenuUL li:hover{
+#mainMenuUL li:hover {
     margin-left: 2vh;
     cursor: pointer;
     background-color: RGBA(40, 100, 255, 0.25);
 }
 
+#mainMenuPage {
+    display: block;
+}
+
+#settingsPage {
+    display: none;
+}
+
 .noselect {
-    -webkit-touch-callout: none; /* iOS Safari */
-      -webkit-user-select: none; /* Safari */
-       -khtml-user-select: none; /* Konqueror HTML */
-         -moz-user-select: none; /* Firefox */
-          -ms-user-select: none; /* Internet Explorer/Edge */
-              user-select: none; /* Non-prefixed version, currently
-                                    supported by Chrome and Opera */
-  }
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
