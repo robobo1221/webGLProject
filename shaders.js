@@ -116,7 +116,7 @@ function runProgram(gl, programInfo, buffers, deltaTime, cameraPosition) {
     modelViewMatrix);
     */
     
-    var sunVector = new THREE.Vector3(0.5, 0.5, -1.0);
+    var sunVector = new THREE.Vector3(Math.cos(deltaTime * 0.25), 0.3, Math.sin(deltaTime * 0.25));
         sunVector.normalize();
 
     gl.uniform3f(programInfo.uniformLocations.camPosLocation, cameraPosition.x, cameraPosition.y, cameraPosition.z);
