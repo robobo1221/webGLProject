@@ -22,15 +22,13 @@ ul {
     position: absolute;
     margin-top: 50px;
     margin-left: 10px;
-    width: 50vw;
-    height: 40vw;
-    overflow: scroll;
-    display: block;
+    display: none;
 }
 
 #sourceCode {
     color: white;
     text-shadow: 2px 2px 4px black;
+    font-size: 15px;
     word-wrap: break-word;      /* IE 5.5-7 */
     white-space: -moz-pre-wrap; /* Firefox 1.0-2.0 */
     white-space: pre-wrap;

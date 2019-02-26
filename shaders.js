@@ -1,7 +1,7 @@
 var vsSource = readFile('shader.vsh');
 var fsSource = readFile('shader.fsh');
 
-//drawSourcecode(fsSource);
+drawSourcecode(fsSource);
 
 main();
 
@@ -214,7 +214,7 @@ function drawSourcecode(code){
 }
 
 function rewritefsSource(){
-    fsSource = $('#sourceCode').html();
+    document.getElementById('sourceCode').innerHTML = $('#sourceCode').html();
 }
 
 function moveCamera(cameraPosition){
