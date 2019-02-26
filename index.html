@@ -1,9 +1,18 @@
 <link rel="stylesheet" type="text/css" href="style.css" />
 
 <body>
+    <canvas id="glCanvas"></canvas>
+
+    <div id="menuWrapper">
+        <img src="logo.png" id="logoImageID" ></img>
+        <ul id="mainMenuUL">
+            <li class="noselect" id="entSimID">Enter simulation</li>
+            <li class="noselect">Settings</li>
+        </ul>
+    </div>
     <ul>
-        <li>
-            <select id="reslist">
+        <li id="reslist">
+            <select id="reslistSelect">
                 <option value="0.125">0.125</option>
                 <option value="0.25">0.25</option>
                 <option value="0.5" selected="selected">0.5</option>
@@ -20,11 +29,10 @@
         <code id="sourceCode" spellcheck = "false" contenteditable="true"></code>
     </div>
     -->
-
-    <canvas id="glCanvas"></canvas>
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="three.js"></script>
 <script src="keys.js"></script>
+<script src="mainMenu.js"></script>
 <script src="shaders.js"></script>

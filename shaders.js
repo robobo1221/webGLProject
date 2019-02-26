@@ -186,7 +186,7 @@ function readFile(file)
 }
 
 function resize(canvas) {
-    var e = document.getElementById("reslist");
+    var e = document.getElementById("reslistSelect");
     var resmult = e.options[e.selectedIndex].value;
 
     // Lookup the size the browser is displaying the canvas.
@@ -217,14 +217,16 @@ function moveCamera(cameraPosition){
 
     var speed = 10000.0;
 
-    if (keyboardInput.keyShift) speed = 50000.0;
-    if (keyboardInput.keyX)     speed = 1000.0;
-    if (keyboardInput.keyD)     cameraPosition.x += speed;
-    if (keyboardInput.keyS)     cameraPosition.z -= speed;
-    if (keyboardInput.keyA)     cameraPosition.x -= speed;
-    if (keyboardInput.keyW)     cameraPosition.z += speed;
-    if (keyboardInput.keySpace) cameraPosition.y += speed * 0.25;
-    if (keyboardInput.keyC)     cameraPosition.y -= speed * 0.25;
+    if (hasEnteredSimulation) {
+        if (keyboardInput.keyShift) speed = 50000.0;
+        if (keyboardInput.keyX)     speed = 1000.0;
+        if (keyboardInput.keyD)     cameraPosition.x += speed;
+        if (keyboardInput.keyS)     cameraPosition.z -= speed;
+        if (keyboardInput.keyA)     cameraPosition.x -= speed;
+        if (keyboardInput.keyW)     cameraPosition.z += speed;
+        if (keyboardInput.keySpace) cameraPosition.y += speed * 0.25;
+        if (keyboardInput.keyC)     cameraPosition.y -= speed * 0.25;
+    }
 
     //cameraPosition.y = Math.max(cameraPosition.y, -Math.sqrt(cameraPosition.x * cameraPosition.z) + 1.0);
 }
