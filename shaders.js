@@ -15,7 +15,9 @@ function main() {
         return;
     }
 
+    var then = 0;
     var now = new Date();
+    var delta = 0.1;
 
     var cameraPosition = new THREE.Vector3(0.0, 100000.0, 0.0);
 
@@ -42,6 +44,16 @@ function main() {
         };
 
         now *= 0.001;
+        var sTime = now;
+        var fTime = (sTime - Math.floor(sTime));
+        
+        if (fTime > 0.0 && fTime < 0.0 + delta)
+        delta = now - then;
+
+        then = now;
+
+        var fps = 1.0 / delta;
+        document.getElementById("fpsCounter").innerHTML = Math.floor(fps);
 
         moveCamera(cameraPosition);
 
@@ -82,7 +94,6 @@ function runProgram(gl, programInfo, buffers, deltaTime, cameraPosition) {
     gl.enable(gl.DEPTH_TEST);
     gl.depthFunc(gl.LEQUAL);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-    gl.enable(gl.DITHER);
 
     {
         const numComponents = 2;

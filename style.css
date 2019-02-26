@@ -64,7 +64,7 @@ ul {
     }
 }
 
-#menuWrapper {
+#menuWrapper, #fpsCounter {
     position: absolute;
     overflow: auto;
     margin: 0;
