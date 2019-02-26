@@ -203,7 +203,7 @@ vec3 calculatePlanet(vec3 backGround, vec3 worldVector, float LoV, float dither)
     const int steps = 32;
     const float rSteps = 1.0 / float(steps);
 
-    vec3 spherePosition = cameraPosition + vec3(0.0, 0.0, -planetRadius * 3.0);
+    vec3 spherePosition = cameraPosition + vec3(0.0, planetRadius, 0.0);
 
     vec2 aS = rsi(spherePosition, worldVector, atmosphereRadius);
     if (aS.y < 0.0) return backGround;

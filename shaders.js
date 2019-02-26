@@ -17,7 +17,7 @@ function main() {
 
     var now = new Date();
 
-    var cameraPosition = new THREE.Vector3(0.0, 0.0, 0.0);
+    var cameraPosition = new THREE.Vector3(0.0, 100000.0, 0.0);
 
     const buffers = initBuffers(gl);
 
@@ -186,8 +186,12 @@ function readFile(file)
 }
 
 function resize(canvas) {
-    var e = document.getElementById("reslistSelect");
-    var resmult = e.options[e.selectedIndex].value;
+    var renderQualitySlider = document.getElementById("renderQualitySlider");
+    var renderQualityValue = document.getElementById("renderQualitySliderVal");
+    
+    var resmult = renderQualitySlider.value;
+
+    renderQualityValue.innerHTML = resmult;
 
     // Lookup the size the browser is displaying the canvas.
     var displayWidth  = canvas.clientWidth * resmult;

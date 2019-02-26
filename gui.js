@@ -1,22 +1,23 @@
 var hasEnteredSimulation = false;
 var hasEnteredSettings = false;
 
+const animationDurationSpeed = 0.1;
+
 enterSimulation();
 enterSettings();
 
+var mainMenuULElement = document.getElementById("mainMenuUL");
+var logoImageElement = document.getElementById("logoImageID");
+
 function enterSimulation(){
     var canvasElement = document.getElementById("glCanvas");
-    var reslistElement = document.getElementById("reslist");
     var menuWrapperElement = document.getElementById("menuWrapper");
-    var mainMenuULElement = document.getElementById("mainMenuUL");
-    var logoImageElement = document.getElementById("logoImageID");
     
     var enterSimulationElement = document.getElementById("entSimID");
     enterSimulationElement.addEventListener("click", doEnterSimulation);
     
     function doEnterSimulation() {
         canvasElement.style.filter = "blur(0px)";
-        reslistElement.style.display = "block";
         menuWrapperElement.style.display = "none";
 
         hasEnteredSimulation = true;
@@ -24,10 +25,9 @@ function enterSimulation(){
 
     if (keyboardInput.keyEsc && hasEnteredSimulation) {
         canvasElement.style.filter = "blur(10px)";
-        reslistElement.style.display = "none";
         menuWrapperElement.style.display = "block";
-        mainMenuULElement.style.animationDuration = "0.1s";
-        logoImageElement.style.animationDuration = "0.1s";
+        mainMenuULElement.style.animationDuration = animationDurationSpeed+"s";
+        logoImageElement.style.animationDuration = animationDurationSpeed+"s";
 
         hasEnteredSimulation = false;
     }
@@ -45,6 +45,18 @@ function enterSettings(){
     function doEnterSettings() {
         settingsPageElement.style.display = "block";
         mainMenuPageElement.style.display = "none";
+        settingsPageElement.style.animationDuration = animationDurationSpeed+"s";
+
+        hasEnteredSettings = true;
+    }
+
+    if (keyboardInput.keyEsc && hasEnteredSettings){
+        settingsPageElement.style.display = "none";
+        mainMenuPageElement.style.display = "block";
+        mainMenuULElement.style.animationDuration = animationDurationSpeed+"s";
+        logoImageElement.style.animationDuration = animationDurationSpeed+"s";
+
+        hasEnteredSettings = false;
     }
 
     requestAnimationFrame(enterSettings);
