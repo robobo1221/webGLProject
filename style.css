@@ -92,6 +92,10 @@ ul {
     padding-top: 30px;
 }
 
+#exitSettings {
+    text-align: end;
+}
+
 #renderQualitySlider {
     width: 100px;
 }
@@ -111,6 +115,11 @@ ul {
     padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10vw;
+}
+
+li a {
+    text-decoration: none;
+    color: inherit;
 }
 
 #mainMenuUL li:hover {
