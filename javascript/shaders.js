@@ -20,7 +20,7 @@ function main() {
     var delta = 0.1;
 
     var cameraPosition = new THREE.Vector3(0.0, 100000.0, 0.0);
-    var mousePosition = new THREE.Vector2();
+    var mousePosition = new THREE.Vector2(0.5, 0.5);
 
     const buffers = initBuffers(gl);
 
@@ -257,10 +257,23 @@ function moveCamera(cameraPosition){
 }
 
 function calculateMousePosition(gl, mousePosition){
-    document.addEventListener("mousemove", mouseMoveHandler, false);
-    
-    function mouseMoveHandler(e) {
-        mousePosition.x = (e.clientX / gl.canvas.width) * 0.5;
-        mousePosition.y = 1.0 - (e.clientY / gl.canvas.height) * 0.5;
-    }
+        document.addEventListener("mousemove", mouseMoveHandler, false);
+
+        var prevMousePos = {
+            x: 0.5,
+            y: 0.5
+        };
+        
+        function mouseMoveHandler(e) {
+            if (hasEnteredSimulation) {
+                mousePosition.x = (e.clientX / gl.canvas.width) * 0.5;
+                mousePosition.y = 1.0 - (e.clientY / gl.canvas.height) * 0.5;
+            } else {
+                mousePosition.x = prevMousePos.x;
+                mousePosition.y = prevMousePos.y;
+            }
+        }
+
+        prevMousePos.x = mousePosition.x;
+        prevMousePos.y = mousePosition.y;
 }
