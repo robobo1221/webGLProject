@@ -307,8 +307,8 @@ void main() {
     color /= color + 1.0;
     color = pow(color, vec3(1.0 / 4.4));
 
-    vec3 sunColor = absorbSunlightSky(cameraPosition + vec3(0.0, planetRadius, 0.0), sunVector);
-    color = calculateLensflare(color, sunColor, texcoord, sunScreenPosition);
+    //vec3 sunColor = absorbSunlightSky(cameraPosition + vec3(0.0, planetRadius, 0.0), sunVector);
+    //color = calculateLensflare(color, sunColor, texcoord, sunScreenPosition);
 
     fragColor = vec4(color, 1.0);
 }
