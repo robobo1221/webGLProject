@@ -211,8 +211,9 @@ function readFile(file)
     return res;
 }
 
+const renderQualitySlider = document.getElementById("renderQualitySlider");
+
 function resize(canvas) {
-    const renderQualitySlider = document.getElementById("renderQualitySlider");
     const renderQualityValue = document.getElementById("renderQualitySliderVal");
     
     const resmult = renderQualitySlider.value;
@@ -271,8 +272,8 @@ function calculateMousePosition(gl, mousePosition){
         
         function mouseMoveHandler(e) {
             if (hasEnteredSimulation) {
-                mousePosition.x = (e.clientX / gl.canvas.width) * 0.5;
-                mousePosition.y = 1.0 - (e.clientY / gl.canvas.height) * 0.5;
+                mousePosition.x = (e.clientX / gl.canvas.width) * renderQualitySlider.value;
+                mousePosition.y = 1.0 - (e.clientY / gl.canvas.height) * renderQualitySlider.value;
             } else {
                 mousePosition.x = prevMousePos.x;
                 mousePosition.y = prevMousePos.y;
