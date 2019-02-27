@@ -103,6 +103,11 @@ ul {
     animation-duration: 1s;
 }
 
+#optShowFPSVal:hover{
+    cursor: pointer;
+    color: rgb(80, 200, 255);
+}
+
 #mainMenuUL li {
     transition: 150ms;
     display: block;

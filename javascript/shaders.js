@@ -1,5 +1,5 @@
-var vsSource = readFile('shaders/shader.vsh');
-var fsSource = readFile('shaders/shader.fsh');
+const vsSource = readFile('shaders/shader.vsh');
+const fsSource = readFile('shaders/shader.fsh');
 
 drawSourcecode(fsSource);
 
@@ -26,9 +26,9 @@ function main() {
 
     function render(now){
 
-        var shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+        const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
 
-        var programInfo = {
+        const programInfo = {
             program: shaderProgram,
             attribLocations: {
                 vertexPosition: gl.getAttribLocation(shaderProgram, 'vertPos'),
@@ -104,7 +104,6 @@ function runProgram(gl, programInfo, buffers, deltaTime, cameraPosition, mousePo
         const stride = 0;
         const offset = 0;
 
-        gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
         gl.vertexAttribPointer(
             programInfo.attribLocations.vertexPosition,
             numComponents,
@@ -114,6 +113,8 @@ function runProgram(gl, programInfo, buffers, deltaTime, cameraPosition, mousePo
             offset);
         gl.enableVertexAttribArray(
             programInfo.attribLocations.vertexPosition);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffers.position);
     }
 
     gl.useProgram(programInfo.program);
@@ -190,7 +191,7 @@ function loadShader(gl, type, source) {
 function readFile(file)
 {
     var res = "";
-    var f = new XMLHttpRequest();
+    const f = new XMLHttpRequest();
     f.open("GET", file, false);
     f.onreadystatechange = function ()
     {
@@ -207,16 +208,16 @@ function readFile(file)
 }
 
 function resize(canvas) {
-    var renderQualitySlider = document.getElementById("renderQualitySlider");
-    var renderQualityValue = document.getElementById("renderQualitySliderVal");
+    const renderQualitySlider = document.getElementById("renderQualitySlider");
+    const renderQualityValue = document.getElementById("renderQualitySliderVal");
     
-    var resmult = renderQualitySlider.value;
+    const resmult = renderQualitySlider.value;
 
     renderQualityValue.innerHTML = resmult;
 
     // Lookup the size the browser is displaying the canvas.
-    var displayWidth  = canvas.clientWidth * resmult;
-    var displayHeight = canvas.clientHeight * resmult;
+    const displayWidth  = canvas.clientWidth * resmult;
+    const displayHeight = canvas.clientHeight * resmult;
 
     // Check if the canvas is not the same size.
     if (canvas.width  != displayWidth ||
@@ -230,7 +231,7 @@ function resize(canvas) {
 }
 
 function drawSourcecode(code){
-    var sc = document.getElementById('sourceCode');
+    const sc = document.getElementById('sourceCode');
     sc.innerHTML = code;
 }
 

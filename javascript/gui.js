@@ -1,6 +1,7 @@
 var hasEnteredSimulation = false;
 var hasEnteredSettings = false;
 var hasEnteredCode = false;
+var showFPS = true;
 
 const animationDurationSpeed = 0.1;
 
@@ -91,4 +92,19 @@ function enterSourceCode(){
     }
 
     requestAnimationFrame(enterSourceCode);
+}
+
+function toggleFPSMeter(){
+    var fpsCounterElement = document.getElementById("fpsCounter");
+    var valueElement = document.getElementById("optShowFPSVal");
+
+    if (showFPS == false) {
+        showFPS = true;
+        valueElement.innerHTML = "ON";
+        fpsCounterElement.style.display = "block";
+    } else {
+        showFPS = false;
+        valueElement.innerHTML = "OFF";
+        fpsCounterElement.style.display = "none";
+    }
 }
