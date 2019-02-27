@@ -20,6 +20,7 @@ function main() {
     var delta = 0.1;
 
     var cameraPosition = new THREE.Vector3(0.0, 100000.0, 0.0);
+    var mousePosition = new THREE.Vector2();
 
     const buffers = initBuffers(gl);
 
@@ -40,6 +41,7 @@ function main() {
                 frameTimeCountLocation: gl.getUniformLocation(shaderProgram, 'time'),
                 sunVecLocation: gl.getUniformLocation(shaderProgram, 'sunVector'),
                 camPosLocation: gl.getUniformLocation(shaderProgram, 'cameraPosition'),
+                mousePosLocation: gl.getUniformLocation(shaderProgram, 'mousePosition'),
             },
         };
 
@@ -57,7 +59,7 @@ function main() {
 
         moveCamera(cameraPosition);
 
-        runProgram(gl, programInfo, buffers, now, cameraPosition);
+        runProgram(gl, programInfo, buffers, now, cameraPosition, mousePosition);
 
         requestAnimationFrame(render);
     }
@@ -84,7 +86,7 @@ function initBuffers(gl) {
     };
 }
 
-function runProgram(gl, programInfo, buffers, deltaTime, cameraPosition) {
+function runProgram(gl, programInfo, buffers, deltaTime, cameraPosition, mousePosition) {
 
     resize(gl.canvas);
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
@@ -126,13 +128,21 @@ function runProgram(gl, programInfo, buffers, deltaTime, cameraPosition) {
         false,
     modelViewMatrix);
     */
+
+    calculateMousePosition(gl, mousePosition);
     
-    var sunVector = new THREE.Vector3(Math.cos(deltaTime * 0.25), 0.3, Math.sin(deltaTime * 0.25));
+    var worldMousePos = new THREE.Vector2(mousePosition.x, mousePosition.y);
+        worldMousePos.multiplyScalar(2.0);
+        worldMousePos.subScalar(1.0);
+        worldMousePos.y *= gl.canvas.height / gl.canvas.width;
+
+    var sunVector = new THREE.Vector3(worldMousePos.x, worldMousePos.y, 1.0);
         sunVector.normalize();
 
     gl.uniform3f(programInfo.uniformLocations.camPosLocation, cameraPosition.x, cameraPosition.y, cameraPosition.z);
     gl.uniform3f(programInfo.uniformLocations.sunVecLocation, sunVector.x, sunVector.y, sunVector.z);
     gl.uniform2f(programInfo.uniformLocations.resLocation, gl.canvas.width, gl.canvas.height);
+    gl.uniform2f(programInfo.uniformLocations.mousePosLocation, mousePosition.x, mousePosition.y);
     gl.uniform1f(programInfo.uniformLocations.frameTimeCountLocation, deltaTime);
 
     {
@@ -244,4 +254,13 @@ function moveCamera(cameraPosition){
     }
 
     //cameraPosition.y = Math.max(cameraPosition.y, -Math.sqrt(cameraPosition.x * cameraPosition.z) + 1.0);
+}
+
+function calculateMousePosition(gl, mousePosition){
+    document.addEventListener("mousemove", mouseMoveHandler, false);
+    
+    function mouseMoveHandler(e) {
+        mousePosition.x = (e.clientX / gl.canvas.width) * 0.5;
+        mousePosition.y = 1.0 - (e.clientY / gl.canvas.height) * 0.5;
+    }
 }
