@@ -42,6 +42,7 @@ function main() {
                 sunVecLocation: gl.getUniformLocation(shaderProgram, 'sunVector'),
                 camPosLocation: gl.getUniformLocation(shaderProgram, 'cameraPosition'),
                 mousePosLocation: gl.getUniformLocation(shaderProgram, 'mousePosition'),
+                clipSunPosLocation: gl.getUniformLocation(shaderProgram, 'sunScreenPosition'),
             },
         };
 
@@ -132,18 +133,21 @@ function runProgram(gl, programInfo, buffers, deltaTime, cameraPosition, mousePo
 
     calculateMousePosition(gl, mousePosition);
     
-    var worldMousePos = new THREE.Vector2(mousePosition.x, mousePosition.y);
-        worldMousePos.multiplyScalar(2.0);
-        worldMousePos.subScalar(1.0);
-        worldMousePos.y *= gl.canvas.height / gl.canvas.width;
+    var clipSunpos = new THREE.Vector2(mousePosition.x, mousePosition.y);
 
-    var sunVector = new THREE.Vector3(worldMousePos.x, worldMousePos.y, 1.0);
+    var worldsunPos = new THREE.Vector2(clipSunpos.x, clipSunpos.y);
+        worldsunPos.multiplyScalar(2.0);
+        worldsunPos.subScalar(1.0);
+        worldsunPos.y *= gl.canvas.height / gl.canvas.width;
+
+    var sunVector = new THREE.Vector3(worldsunPos.x, worldsunPos.y, 1.0);
         sunVector.normalize();
 
     gl.uniform3f(programInfo.uniformLocations.camPosLocation, cameraPosition.x, cameraPosition.y, cameraPosition.z);
     gl.uniform3f(programInfo.uniformLocations.sunVecLocation, sunVector.x, sunVector.y, sunVector.z);
     gl.uniform2f(programInfo.uniformLocations.resLocation, gl.canvas.width, gl.canvas.height);
     gl.uniform2f(programInfo.uniformLocations.mousePosLocation, mousePosition.x, mousePosition.y);
+    gl.uniform2f(programInfo.uniformLocations.clipSunPosLocation, clipSunpos.x, clipSunpos.y);
     gl.uniform1f(programInfo.uniformLocations.frameTimeCountLocation, deltaTime);
 
     {

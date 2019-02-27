@@ -9,6 +9,7 @@ uniform vec3 sunVector;			//Normalized sun direction
 
 uniform vec2 viewResolution;    //x = viewWidth, y = viewHeight
 uniform vec2 mousePosition;     //Clipspace mousePosition
+uniform vec2 sunScreenPosition; //Clipspace sunPosion (Unnormalized)
 uniform float time;             //in Seconds
 
 /*****************************************************************/
@@ -255,6 +256,38 @@ vec3 calculatePlanet(vec3 backGround, vec3 worldVector, float LoV, float dither)
     return (backGround * visibility + planet * (1.0 - visibility)) * transmittance + scattering;
 }
 
+float calcLens(vec2 coord, vec2 sunPos, float aspect, float halfV, float ramp, float maximum, float size){
+    vec2 adjustedCoord = coord * vec2(1.0, aspect);
+    float centerDist = distance(adjustedCoord, vec2(0.5, aspect * 0.5));
+    
+    vec2 adjustedLensCoord = ((coord * 2.0 - 1.0) * -halfV * 
+                             centerDist * 0.5 + 0.5) * 
+                             vec2(1.0, aspect);
+
+    float dist = 1.0 - distance(adjustedLensCoord, sunPos);
+
+    return clamp01((dist * maximum - (1.0 - size)) * ramp);
+}
+
+vec3 calculateLensflare(vec3 color, vec3 sunColor, vec2 coord, vec2 sunPos){
+
+    float aspect = viewResolution.y / viewResolution.x;
+
+    coord = coord;
+    sunPos.y *= aspect;
+
+    vec3 lens0 = calcLens(coord, sunPos, aspect, 0.2, 30.0, 1.0, 0.02) * vec3(1.0, 0.5, 0.2) * 0.2;
+    vec3 lens1 = calcLens(coord, sunPos, aspect, 0.3, 2600.0, 1.0, 0.005) * vec3(1.0, 0.0, 0.9) * 0.1;
+    vec3 lens2 = calcLens(coord, sunPos, aspect, 0.6, 3600.0, 1.0, 0.004) * vec3(0.8, 0.0, 1.0) * 0.12;
+    vec3 lens3 = calcLens(coord, sunPos, aspect, 0.9, 4600.0, 1.0, 0.002) * vec3(0.5, 0.1, 1.0) * 0.1;
+    vec3 lens4 = calcLens(coord, sunPos, aspect, -0.4, 3600.0, 1.0, 0.002) * vec3(0.2, 0.5, 1.0) * 0.1;
+    vec3 lens5 = calcLens(coord, sunPos, aspect, -0.7, 2600.0, 1.0, 0.002) * vec3(0.01, 0.6, 1.0) * 0.07;
+
+    vec3 totalLens = lens0 + lens1 + lens2 + lens3 + lens4 + lens5;
+
+    return color + totalLens * sunColor * 2.0;
+}
+
 void main() {
 
     vec2 wUV = (texcoord * 2.0 - 1.0) * vec2(1.0, viewResolution.y / viewResolution.x);
@@ -269,11 +302,13 @@ void main() {
 
     vec3 color = vec3(sun) + stars;
     color = calculatePlanet(color, worldVector, LoV, dither);
-    
 
     color = pow(color, vec3(2.2));
     color /= color + 1.0;
     color = pow(color, vec3(1.0 / 4.4));
+
+    vec3 sunColor = absorbSunlightSky(cameraPosition + vec3(0.0, planetRadius, 0.0), sunVector);
+    color = calculateLensflare(color, sunColor, texcoord, sunScreenPosition);
 
     fragColor = vec4(color, 1.0);
 }
