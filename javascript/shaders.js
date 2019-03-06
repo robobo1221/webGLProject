@@ -60,8 +60,9 @@ function main() {
 
         moveCamera(cameraPosition);
 
+        if (hasEnteredSimulation)
         runProgram(gl, programInfo, buffers, now, cameraPosition, mousePosition);
-
+        
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
@@ -248,39 +249,23 @@ function moveCamera(cameraPosition){
 
     var speed = 10000.0;
 
-    if (hasEnteredSimulation) {
-        if (keyboardInput.keyShift) speed = 50000.0;
-        if (keyboardInput.keyX)     speed = 1000.0;
-        if (keyboardInput.keyD)     cameraPosition.x += speed;
-        if (keyboardInput.keyS)     cameraPosition.z -= speed;
-        if (keyboardInput.keyA)     cameraPosition.x -= speed;
-        if (keyboardInput.keyW)     cameraPosition.z += speed;
-        if (keyboardInput.keySpace) cameraPosition.y += speed * 0.25;
-        if (keyboardInput.keyC)     cameraPosition.y -= speed * 0.25;
-    }
+    if (keyboardInput.keyShift) speed = 50000.0;
+    if (keyboardInput.keyX)     speed = 1000.0;
+    if (keyboardInput.keyD)     cameraPosition.x += speed;
+    if (keyboardInput.keyS)     cameraPosition.z -= speed;
+    if (keyboardInput.keyA)     cameraPosition.x -= speed;
+    if (keyboardInput.keyW)     cameraPosition.z += speed;
+    if (keyboardInput.keySpace) cameraPosition.y += speed * 0.25;
+    if (keyboardInput.keyC)     cameraPosition.y -= speed * 0.25;
 
     //cameraPosition.y = Math.max(cameraPosition.y, -Math.sqrt(cameraPosition.x * cameraPosition.z) + 1.0);
 }
 
 function calculateMousePosition(gl, mousePosition){
     document.addEventListener("mousemove", mouseMoveHandler, false);
-
-    var prevMousePos = {
-        x: 0.5,
-        y: 0.5
-    };
     
     function mouseMoveHandler(e) {
-        
-        if (hasEnteredSimulation) {
-            mousePosition.x = (e.clientX / gl.canvas.width) * renderQualitySlider.value;
-            mousePosition.y = 1.0 - (e.clientY / gl.canvas.height) * renderQualitySlider.value;
-        } else {
-            mousePosition.x = prevMousePos.x;
-            mousePosition.y = prevMousePos.y;
-        }
+        mousePosition.x = (e.clientX / gl.canvas.width) * renderQualitySlider.value;
+        mousePosition.y = 1.0 - (e.clientY / gl.canvas.height) * renderQualitySlider.value;
     }
-
-    prevMousePos.x = mousePosition.x;
-    prevMousePos.y = mousePosition.y;
 }
