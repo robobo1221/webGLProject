@@ -215,12 +215,6 @@ function readFile(file)
 const renderQualitySlider = document.getElementById("renderQualitySlider");
 
 function resize(canvas) {
-    const renderQualityValue = document.getElementById("renderQualitySliderVal");
-    
-    const resmult = renderQualitySlider.value;
-
-    renderQualityValue.innerHTML = resmult;
-
     // Lookup the size the browser is displaying the canvas.
     const displayWidth  = canvas.clientWidth * resmult;
     const displayHeight = canvas.clientHeight * resmult;

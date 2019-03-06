@@ -39,7 +39,15 @@ function enterSimulation(){
     requestAnimationFrame(enterSimulation);
 }
 
+var resmult;
+
 function enterSettings(){
+    const renderQualityValue = document.getElementById("renderQualitySliderVal");
+    
+    resmult = renderQualitySlider.value;
+
+    renderQualityValue.innerHTML = resmult;
+
     var enterSettingsElement = document.getElementById("entSetID");
     var settingsPageElement = document.getElementById("settingsPage");
 
