@@ -2,6 +2,7 @@ var hasEnteredSimulation = false;
 var hasEnteredSettings = false;
 var hasEnteredCode = false;
 var showFPS = true;
+var resmult;
 
 const animationDurationSpeed = 0.1;
 
@@ -38,8 +39,6 @@ function enterSimulation(){
 
     requestAnimationFrame(enterSimulation);
 }
-
-var resmult;
 
 function enterSettings(){
     const renderQualityValue = document.getElementById("renderQualitySliderVal");
