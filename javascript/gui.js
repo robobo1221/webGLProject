@@ -49,7 +49,6 @@ function enterSettings(){
         settingsPageElement.style.display = "block";
         mainMenuPageElement.style.display = "none";
         settingsPageElement.style.animationDuration = animationDurationSpeed+"s";
-        canvasElement.style.filter = "blur(0px)";
 
         hasEnteredSettings = true;
     }
@@ -59,7 +58,6 @@ function enterSettings(){
         mainMenuPageElement.style.display = "block";
         mainMenuULElement.style.animationDuration = animationDurationSpeed+"s";
         logoImageElement.style.animationDuration = animationDurationSpeed+"s";
-        canvasElement.style.filter = "blur(10px)";
 
         hasEnteredSettings = false;
     }
