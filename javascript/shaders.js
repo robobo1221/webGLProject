@@ -263,23 +263,24 @@ function moveCamera(cameraPosition){
 }
 
 function calculateMousePosition(gl, mousePosition){
-        document.addEventListener("mousemove", mouseMoveHandler, false);
+    document.addEventListener("mousemove", mouseMoveHandler, false);
 
-        var prevMousePos = {
-            x: 0.5,
-            y: 0.5
-        };
+    var prevMousePos = {
+        x: 0.5,
+        y: 0.5
+    };
+    
+    function mouseMoveHandler(e) {
         
-        function mouseMoveHandler(e) {
-            if (hasEnteredSimulation) {
-                mousePosition.x = (e.clientX / gl.canvas.width) * renderQualitySlider.value;
-                mousePosition.y = 1.0 - (e.clientY / gl.canvas.height) * renderQualitySlider.value;
-            } else {
-                mousePosition.x = prevMousePos.x;
-                mousePosition.y = prevMousePos.y;
-            }
+        if (hasEnteredSimulation) {
+            mousePosition.x = (e.clientX / gl.canvas.width) * renderQualitySlider.value;
+            mousePosition.y = 1.0 - (e.clientY / gl.canvas.height) * renderQualitySlider.value;
+        } else {
+            mousePosition.x = prevMousePos.x;
+            mousePosition.y = prevMousePos.y;
         }
+    }
 
-        prevMousePos.x = mousePosition.x;
-        prevMousePos.y = mousePosition.y;
+    prevMousePos.x = mousePosition.x;
+    prevMousePos.y = mousePosition.y;
 }
