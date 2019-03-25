@@ -288,6 +288,43 @@ vec3 calculateLensflare(vec3 color, vec3 sunColor, vec2 coord, vec2 sunPos){
     return color + totalLens * sunColor * 2.0;
 }
 
+vec3 linearToSRGB(vec3 color){
+    return pow(color, vec3(1.0 / 2.2));
+}
+
+vec3 srgbToLinear(vec3 color){
+    return pow(color, vec3(2.2));
+}
+
+// https://github.com/TheRealMJP/BakingLab/blob/master/BakingLab/ACES.hlsl
+const mat3 ACESInputMat = mat3(
+    0.59719, 0.35458, 0.04823,
+    0.07600, 0.90834, 0.01566,
+    0.02840, 0.13383, 0.83777
+);
+
+const mat3 ACESOutputMat = mat3(
+     1.60475, -0.53108, -0.07367,
+    -0.10208,  1.10813, -0.00605,
+    -0.00327, -0.07276,  1.07602
+);
+
+vec3 RRTAndODTFit( in vec3 v ) {
+    vec3 a = v * (v + 0.0245786) /*- 0.000090537*/;
+    vec3 b = v * (0.983729 * v + 0.4329510) + 0.238081;
+    return a / b;
+}
+
+vec3 ACESFitted(vec3 color ) {
+    color = color * ACESInputMat;
+	//color *= 1.5;
+    color = RRTAndODTFit(color);
+    color = color * ACESOutputMat;
+    color = clamp(color, 0.0, 1.0);
+	color = linearToSRGB(color);
+    return color;
+}
+
 void main() {
 
     vec2 wUV = (texcoord * 2.0 - 1.0) * vec2(1.0, viewResolution.y / viewResolution.x);
@@ -303,9 +340,8 @@ void main() {
     vec3 color = vec3(sun) + stars;
     color = calculatePlanet(color, worldVector, LoV, dither);
 
-    color = pow(color, vec3(2.2));
-    color /= color + 1.0;
-    color = pow(color, vec3(1.0 / 4.4));
+    //color = pow(color, vec3(2.2));
+    color = ACESFitted(color);
 
     //vec3 sunColor = absorbSunlightSky(cameraPosition + vec3(0.0, planetRadius, 0.0), sunVector);
     //color = calculateLensflare(color, sunColor, texcoord, sunScreenPosition);
